@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/item_text"
+    android:fontFamily="serif"
+    android:textColor="#0E0D0D"
+    android:textSize="20sp"
+    android:textStyle="italic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</TextView>
