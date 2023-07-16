@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(MainActivity.this, "Runtime permission given", Toast.LENGTH_SHORT).show();
-                addSongsToList();
+                loadmusicthread();
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_AUDIO}, MEDIA_AUDIO_REQ_CODE);
             }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
 
                             Toast.makeText(MainActivity.this, "Runtime permission given", Toast.LENGTH_SHORT).show();
-                            addSongsToList();
+                            loadmusicthread();
 
                         }
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             case MEDIA_AUDIO_REQ_CODE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "Runtime permission given", Toast.LENGTH_SHORT).show();
-                    addSongsToList();
+                    loadmusicthread();
                 }
         }
     }
@@ -129,11 +129,25 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < mySongs.size(); i++) {
             items[i] = mySongs.get(i).getName().replace(".mp3", "");
         }
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                addToList(items, mySongs);
+            }
+        });
 
-        addToList(items, mySongs);
     }
 
+    public void loadmusicthread(){
+        Thread search = new Thread() {
 
+            @Override
+            public void run() {
+                addSongsToList();
+            }
+        };
+        search.start();
+    }
 
 
     public ArrayList<File> fetchSongs(File file) {

@@ -22,10 +22,10 @@
         android:layout_height="0dp"
         android:background="#EFF2F4"
         android:fontFamily="serif"
-        android:text="                  Songs"
+        android:text="   My Songs"
         android:textColor="#D8CD3992"
         android:textColorHighlight="#0E0D0D"
-        android:textSize="34sp"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

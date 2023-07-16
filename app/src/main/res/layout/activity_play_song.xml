@@ -6,15 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".PlaySong">
 
+
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="408dp"
-        android:layout_height="404dp"
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/musiclogo" />
+        app:srcCompat="@drawable/background" />
+
 
     <TextView
         android:id="@+id/textView"
@@ -138,4 +140,17 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="302dp"
+        android:layout_height="320dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/music" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

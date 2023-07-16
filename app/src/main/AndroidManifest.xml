@@ -19,9 +19,12 @@
         android:theme="@style/Base.Theme.MiniMusic"
         tools:targetApi="33">
         <activity
+            android:name=".likedsongs"
+            android:exported="false" />
+        <activity
             android:name=".Search"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PlaySong"
             android:exported="false"
