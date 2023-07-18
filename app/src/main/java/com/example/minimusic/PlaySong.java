@@ -3,8 +3,15 @@ package com.example.minimusic;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +25,11 @@ import java.io.File;
 import java.text.BreakIterator;
 import java.util.ArrayList;
 
+import io.alterac.blurkit.BlurLayout;
+
 public class PlaySong extends AppCompatActivity {
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -28,7 +39,7 @@ public class PlaySong extends AppCompatActivity {
     }
 
     TextView textView, textStart, textStop;
-    ImageView previous, play, next, playlist;
+    ImageView previous, play, next, playlist, albumArt;
     ImageButton loop;
     Boolean repeatFlag = false;
     ArrayList<File> songs;
@@ -37,6 +48,7 @@ public class PlaySong extends AppCompatActivity {
     int position;
     SeekBar seekBar;
     Thread updateSeek;
+    BlurLayout blur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +63,8 @@ public class PlaySong extends AppCompatActivity {
         loop = findViewById(R.id.loop);
         textStart = findViewById(R.id.textStart);
         textStop= findViewById(R.id.textStop);
-
+        blur = findViewById(R.id.blur);
+        albumArt = findViewById(R.id.albumArt);
 
 
         Intent intent = getIntent();
@@ -116,10 +129,10 @@ public class PlaySong extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mediaPlayer.isPlaying()) {
-                    play.setImageResource(R.drawable.play);
+                    play.setImageResource(R.drawable.playbtn);
                     mediaPlayer.pause();
                 } else {
-                    play.setImageResource(R.drawable.pause);
+                    play.setImageResource(R.drawable.pausebtn);
                     mediaPlayer.start();
                 }
             }
@@ -136,7 +149,7 @@ public class PlaySong extends AppCompatActivity {
                     mediaPlayer.start();
                     seekBar.setProgress(0);
                 }else {
-                    play.setImageResource(R.drawable.play);
+                    play.setImageResource(R.drawable.playbtn);
                     next.performClick();
                     seekBar.setProgress(0);
                 }
@@ -156,13 +169,14 @@ public class PlaySong extends AppCompatActivity {
                 Uri uri = Uri.parse(songs.get(position).toString());
                 mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
                 mediaPlayer.start();
-                play.setImageResource(R.drawable.pause);
+                play.setImageResource(R.drawable.pausebtn);
                 seekBar.setMax(mediaPlayer.getDuration());
                 seekBar.setProgress(0);
                 textContent = songs.get(position).getName().toString();
                 textView.setText(textContent);
                 String endTime = createTime(mediaPlayer.getDuration());
                 textStop.setText(endTime);
+                updateAlbumArt();
 
 
             }
@@ -182,13 +196,14 @@ public class PlaySong extends AppCompatActivity {
                 Uri uri = Uri.parse(songs.get(position).toString());
                 mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
                 mediaPlayer.start();
-                play.setImageResource(R.drawable.pause);
+                play.setImageResource(R.drawable.pausebtn);
                 seekBar.setMax(mediaPlayer.getDuration());
                 seekBar.setProgress(0);
                 textContent = songs.get(position).getName().toString();
                 textView.setText(textContent);
                 String endTime = createTime(mediaPlayer.getDuration());
                 textStop.setText(endTime);
+                updateAlbumArt();
 
             }
         });
@@ -203,7 +218,56 @@ public class PlaySong extends AppCompatActivity {
             }
         });
 
+        updateAlbumArt();
+
 }
+
+    private void updateAlbumArt(){
+
+        Bitmap bitmap = createAlbumArt(songs.get(position).toString());
+        albumArt.setImageBitmap(bitmap);
+
+    }
+
+    public Bitmap createAlbumArt(String filePath) {
+        Bitmap bitmap = null;
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(filePath);
+            byte[] embedPic = retriever.getEmbeddedPicture();
+            bitmap = BitmapFactory.decodeByteArray(embedPic, 0, embedPic.length);
+            Log.d("Debug", "Found album art");
+        } catch (Exception e) {
+            Log.d("Debug", "Cannot find album art");
+            e.printStackTrace();
+            return drawableToBitmap(getResources().getDrawable(R.drawable.bg));
+        } finally {
+            try {
+                retriever.release();
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return bitmap;
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        int width = drawable.getIntrinsicWidth();
+        width = width > 0 ? width : 1;
+        int height = drawable.getIntrinsicHeight();
+        height = height > 0 ? height : 1;
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
 
     private String createTime(int duration) {
 
@@ -221,4 +285,18 @@ public class PlaySong extends AppCompatActivity {
         }
         repeatFlag = !repeatFlag;
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        blur.startBlur();
+    }
+
+    @Override
+    protected void onStop() {
+        blur.pauseBlur();
+        super.onStop();
+
+    }
 }
+

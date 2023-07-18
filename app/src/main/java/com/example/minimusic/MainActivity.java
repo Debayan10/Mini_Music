@@ -12,6 +12,7 @@ import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -34,6 +36,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
+     LottieAnimationView anihome;
+     LottieAnimationView anisearch;
+     LottieAnimationView anilike;
+    private boolean isChecked = false;
+
+
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
     ImageView imageSearch;
@@ -45,7 +53,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.mylistView);
         //searchView = findViewById(R.id.searchView);
-        imageSearch = findViewById(R.id.imagesearch);
+        //imageSearch = findViewById(R.id.imagesearch);
+        anihome = findViewById(R.id.anihome);
+        anisearch = findViewById(R.id.anisearch);
+        anilike = findViewById(R.id.anilike);
+
+//        getSupportActionBar().hide();
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -110,13 +124,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imageSearch.setOnClickListener(new View.OnClickListener() {
+        anisearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Search.class);
-               intent.putExtra("songList", mySongs);
-                startActivity(intent);
+                if (!isChecked) {
+                    anisearch.setSpeed(2);
+                    anisearch.playAnimation();
+                    isChecked = true;
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(MainActivity.this, Search.class);
+                            intent.putExtra("songList", mySongs);
+                            startActivity(intent);
+                        }
+                    }, 200);
+
+                }
+                else{
+                    anisearch.setSpeed(-1);
+                    anisearch.playAnimation();
+                    isChecked = false;
+                }
             }
+
         });
 
     }

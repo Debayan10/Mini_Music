@@ -11,21 +11,39 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
+        app:srcCompat="@drawable/cyanbg" />
 
+
+    <io.alterac.blurkit.BlurLayout
+        android:id="@+id/blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:blk_blurRadius="3"
+        app:blk_downscaleFactor="0.1"
+        app:blk_fps="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </io.alterac.blurkit.BlurLayout>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="161dp"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
         android:layout_marginBottom="28dp"
         android:ellipsize="marquee"
         android:fadingEdge="horizontal"
         android:fontFamily="@font/alice"
+        android:gravity="center"
         android:includeFontPadding="false"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
@@ -37,10 +55,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/albumArt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="68dp"
         android:layout_marginBottom="32dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -49,25 +78,30 @@
 
         <ImageView
             android:id="@+id/previous"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:tint="#222831"
             app:srcCompat="@drawable/previous" />
 
         <ImageView
             android:id="@+id/play"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/pause" />
+            app:srcCompat="@drawable/pausebtn" />
 
         <ImageView
             android:id="@+id/next"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/next" />
@@ -141,16 +175,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="302dp"
-        android:layout_height="320dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/music" />
+    <!--    <com.airbnb.lottie.LottieAnimationView-->
+    <!--        android:layout_width="325dp"-->
+    <!--        android:layout_height="383dp"-->
+    <!--        android:scaleType="fitXY"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/textView"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:lottie_autoPlay="true"-->
+    <!--        app:lottie_loop="true"-->
+    <!--        app:lottie_rawRes="@raw/music" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,6 +25,12 @@ public class Search extends AppCompatActivity {
     ListView mylistView;
     ImageView imageHome,imageView6;
 
+
+    LottieAnimationView anihome;
+    LottieAnimationView anisearch;
+    LottieAnimationView anilike;
+    private boolean isChecked = false;
+
     ArrayList<String> arrayList;
     ArrayAdapter<String> adapter;
 
@@ -31,8 +40,9 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         searchView = findViewById(R.id.searchView);
         mylistView = findViewById(R.id.mylistView);
-        imageHome = findViewById(R.id.imagehome);
-        imageView6 = findViewById(R.id.imageView6);
+        anihome = findViewById(R.id.anihome);
+        anisearch = findViewById(R.id.anisearch);
+        anilike = findViewById(R.id.anilike);
 
         mylistView.setVisibility(View.GONE);
 
@@ -79,15 +89,33 @@ public class Search extends AppCompatActivity {
             }
         });
 
-        imageHome.setOnClickListener(new View.OnClickListener() {
+        anihome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Search.this, MainActivity.class);
-                startActivity(intent);
+                if (!isChecked) {
+                    anihome.setSpeed(2);
+                    anihome.playAnimation();
+                    isChecked = true;
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(Search.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    },200);
+                }
+                else{
+                    anihome.setSpeed(-1);
+                    anihome.playAnimation();
+                    isChecked = false;
+
+                }
+
             }
         });
 
-        imageView6.setOnClickListener(new View.OnClickListener() {
+        anisearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

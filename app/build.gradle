@@ -33,11 +33,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation fileTree(dir: 'C:\\Users\\dbisw\\.gradle\\caches\\modules-2\\files-2.1\\io.alterac.blurkit\\blurkit\\1.1.1\\11a9e24866a1388ec9610827a43e07ce2a4360a7', include: ['*.aar', '*.jar'], exclude: [])
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.karumi:dexter:6.2.3'
     implementation "com.airbnb.android:lottie:6.0.1"
-    implementation 'io.alterac.blurkit:blurkit:1.1.0'
+
 
 }

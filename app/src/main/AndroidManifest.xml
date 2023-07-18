@@ -18,6 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.MiniMusic"
         tools:targetApi="33">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@drawable/shape" />
+
         <activity
             android:name=".likedsongs"
             android:exported="false" />

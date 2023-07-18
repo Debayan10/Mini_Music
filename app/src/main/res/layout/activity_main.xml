@@ -10,8 +10,11 @@
         android:id="@+id/mylistView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#EFF2F4"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        android:background="#000000"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -20,12 +23,12 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#EFF2F4"
+        android:background="#393E46"
         android:fontFamily="serif"
-        android:text="   My Songs"
-        android:textColor="#D8CD3992"
+        android:text=" My Songs"
+        android:textColor="#068EFF"
         android:textColorHighlight="#0E0D0D"
-        android:textSize="28sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,32 +37,59 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#976BE4"
+        android:background="@drawable/shape"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anihome"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/home" />
+            app:lottie_rawRes="@raw/home" />
 
-        <ImageView
-            android:id="@+id/imagesearch"
-            android:layout_width="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anisearch"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/search" />
+            app:lottie_rawRes="@raw/search" />
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anilike"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/like" />
+            android:scaleY="1.5"
+            android:scaleX="1.5"
+            app:lottie_rawRes="@raw/like2" />
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView7"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:tint="#F0F0F3"-->
+<!--            app:srcCompat="@drawable/home" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imagesearch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:tint="#F1EBEB"-->
+<!--            app:srcCompat="@drawable/search" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView9"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:tint="#EFE5E5"-->
+<!--            app:srcCompat="@drawable/like" />-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
